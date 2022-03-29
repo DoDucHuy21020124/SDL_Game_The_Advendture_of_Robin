@@ -8,9 +8,9 @@ Map* Game::map_game2;
 SDL_Event Game::g_event;
 
 Character* Game::character;
-Enemy* Game::enemy;
-Enemy* Game::dragon;
-Enemy* Game::bat;
+Wolf* Game::wolf;
+Dragon* Game::dragon;
+Bat* Game::bat;
 
 
 void Game::game_init() {
@@ -52,9 +52,9 @@ void Game::setup_game() {
 
     character = new Character("image\\archer_walk.png", Vector2D(SCREEN_WIDTH/2, GROUND_HEIGHT - 100), 8, Vector2D(10, 25));
 
-    dragon = new Enemy("image\\image (8).png", Vector2D(-300, GROUND_HEIGHT - 512), 32, Vector2D(0, 0));
-    enemy = new Enemy("image\\wolf.png", Vector2D(SCREEN_WIDTH, GROUND_HEIGHT - 64), 8, Vector2D(-8, 0));
-    bat = new Enemy("image\\bat.png", Vector2D(SCREEN_WIDTH, 200), 4, Vector2D(-5, 2));
+    dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, Vector2D(0, 0));
+    wolf = new Wolf("image\\wolf.png", Vector2D(SCREEN_WIDTH, GROUND_HEIGHT - 64), 8, Vector2D(-8, 0));
+    bat = new Bat("image\\bat.png", Vector2D(SCREEN_WIDTH, 200), 4, Vector2D(-5, 2));
 }
 
 void Game::update_game() {
@@ -63,7 +63,7 @@ void Game::update_game() {
 
     character->update();
     dragon->update();
-    enemy->update();
+    wolf->update();
     bat->update();
 }
 
@@ -73,7 +73,7 @@ void Game::render_game() {
 
     character->draw();
     dragon->draw(SDL_FLIP_HORIZONTAL);
-    enemy->draw();
+    wolf->draw();
     bat->draw();
 }
 

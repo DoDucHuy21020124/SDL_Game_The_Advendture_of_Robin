@@ -104,6 +104,5 @@ void Character::update() {
     handle_event();
     handle_move();
     update_image();
-    frame = (SDL_GetTicks64()/speed)%num_frame;
-    srcRect.x = frame * srcRect.w;
+    TextureManager::update();
 }

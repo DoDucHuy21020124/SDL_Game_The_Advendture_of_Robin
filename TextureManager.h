@@ -28,7 +28,8 @@ public :
 
     SDL_Rect get_destRect() const {return destRect;}
 
-    void draw(const SDL_RendererFlip render_flip = SDL_FLIP_NONE, const double angle = 0, const SDL_Point* center = NULL);
+    virtual void update();
+    virtual void draw(const SDL_RendererFlip render_flip = SDL_FLIP_NONE, const double angle = 0, const SDL_Point* center = NULL);
 };
 
 #endif // TEXTURE_MANAGER_H

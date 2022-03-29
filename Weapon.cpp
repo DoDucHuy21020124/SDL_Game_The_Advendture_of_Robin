@@ -2,6 +2,7 @@
 
 Weapon::Weapon(const char* filePath, Vector2D position, int numFrame, Vector2D vel) : TextureManager(filePath, position, numFrame) {
     velocity = vel;
+    is_move = true;
 }
 
 Weapon::~Weapon() {
@@ -15,4 +16,5 @@ void Weapon::handle_move() {
 
 void Weapon::update() {
     handle_move();
+    TextureManager::update();
 }

@@ -14,8 +14,7 @@ void Enemy::handle_move() {
 }
 
 void Enemy::update() {
-    frame = (SDL_GetTicks64()/speed)%num_frame;
-    srcRect.x = frame * srcRect.w;
     handle_move();
+    TextureManager::update();
 }
 

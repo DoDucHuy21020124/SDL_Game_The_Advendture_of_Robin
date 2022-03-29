@@ -4,7 +4,9 @@
 #include "GeneralFunction.h"
 #include "Map.h"
 #include "Character.h"
-#include "Enemy.h"
+#include "Wolf.h"
+#include "Dragon.h"
+#include "Bat.h"
 
 class Game {
 private :
@@ -19,9 +21,9 @@ public :
     static Map* map_game2;
     static SDL_Event g_event;
     static Character* character;
-    static Enemy* enemy;
-    static Enemy* dragon;
-    static Enemy* bat;
+    static Wolf* wolf;
+    static Dragon* dragon;
+    static Bat* bat;
 
     bool get_is_running() const {return is_running;}
     bool get_game_over() const {return game_over;}

@@ -25,6 +25,7 @@ TextureManager::~TextureManager() {
         delete texture;
         texture = NULL;
     }
+    std::cout << "Delete Texture Manager" << std::endl;
 }
 
 void TextureManager::set_file_path(const char* filePath, int numFrame) {
@@ -37,6 +38,11 @@ void TextureManager::set_file_path(const char* filePath, int numFrame) {
     srcRect.x = frame * srcRect.w;
     srcRect.y = 0;
     destRect.w = srcRect.w;
+}
+
+void TextureManager::update() {
+    frame = (SDL_GetTicks64()/speed)%num_frame;
+    srcRect.x = frame * srcRect.w;
 }
 
 void TextureManager::draw(SDL_RendererFlip render_flip, const double angle, const SDL_Point* center) {

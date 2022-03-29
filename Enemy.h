@@ -4,7 +4,7 @@
 #include "TextureManager.h"
 
 class Enemy : public TextureManager {
-private :
+protected :
     Vector2D velocity;
 
 public :
@@ -12,7 +12,7 @@ public :
     ~Enemy();
 
     void handle_move();
-    void update();
+    virtual void update();
 };
 
 #endif // ENEMY_H
