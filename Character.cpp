@@ -1,7 +1,7 @@
 #include "Character.h"
 #include "Game.h"
 
-Character::Character(const char* filePath, Vector2D position, int numFrame, Vector2D vel) : TextureManager(filePath, position, numFrame) {
+Character::Character(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel) : TextureManager(filePath, position, numFrame, speed) {
     velocity = vel;
     jump_speed = int(velocity.y);
     on_ground = true;

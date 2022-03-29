@@ -15,7 +15,7 @@ protected :
     int num_frame;
 
 public :
-    TextureManager(const char* filePath, Vector2D position, int numFrame);
+    TextureManager(const char* filePath, Vector2D position, int numFrame, int speed_);
     ~TextureManager();
 
     void set_file_path(const char* filePath, int numFrame);

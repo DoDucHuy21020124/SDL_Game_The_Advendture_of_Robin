@@ -10,7 +10,7 @@ const int BACKGROUND_HEIGHT = 800;
 
 class Map : public TextureManager {
 public :
-    Map(const char* filePath, Vector2D pos, int numFrame);
+    Map(const char* filePath, Vector2D pos, int numFrame, int speed);
     ~Map();
 
     void set_xpos(const int& xpos) {destRect.x = xpos;}

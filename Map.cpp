@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "Game.h"
 
-Map::Map(const char* filePath, Vector2D position, int numFrame) : TextureManager(filePath, position, numFrame) {
+Map::Map(const char* filePath, Vector2D position, int numFrame, int speed) : TextureManager(filePath, position, numFrame, speed) {
 
 }
 

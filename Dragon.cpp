@@ -1,7 +1,7 @@
 #include "Dragon.h"
 #include "GeneralFunction.h"
 
-Dragon::Dragon(const char* filePath, Vector2D position, int numFrame, Vector2D vel) : Enemy(filePath, position, numFrame, vel) {
+Dragon::Dragon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel) : Enemy(filePath, position, numFrame, speed, vel) {
 
 }
 
@@ -17,7 +17,7 @@ Dragon::~Dragon() {
 }
 
 void Dragon::init_weapon() {
-    Weapon* fire = new Weapon("image\\fire_ball.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/1.1), 4, Vector2D(5, 0));
+    Weapon* fire = new Weapon("image\\fire_ball.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/1.1), 4, 80, Vector2D(5, 0));
     weapon.push_back(fire);
 }
 

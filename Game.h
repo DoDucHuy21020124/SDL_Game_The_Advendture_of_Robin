@@ -24,6 +24,7 @@ public :
     static Wolf* wolf;
     static Dragon* dragon;
     static Bat* bat;
+    static Wolf* goat;
 
     bool get_is_running() const {return is_running;}
     bool get_game_over() const {return game_over;}

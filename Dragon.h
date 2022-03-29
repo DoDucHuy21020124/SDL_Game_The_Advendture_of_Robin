@@ -10,7 +10,7 @@ private :
     std::vector<Weapon*> weapon;
 
 public :
-    Dragon(const char* filePath, Vector2D position, int numFrame, Vector2D vel);
+    Dragon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Dragon();
 
     void init_weapon();

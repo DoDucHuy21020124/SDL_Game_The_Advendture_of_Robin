@@ -9,7 +9,7 @@ private :
     bool is_move;
 
 public :
-    Weapon(const char* filePath, Vector2D position, int numFrame, Vector2D vel);
+    Weapon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Weapon();
 
     bool get_is_move() const {return is_move;}

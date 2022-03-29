@@ -11,6 +11,7 @@ Character* Game::character;
 Wolf* Game::wolf;
 Dragon* Game::dragon;
 Bat* Game::bat;
+Wolf* Game::goat;
 
 
 void Game::game_init() {
@@ -47,14 +48,16 @@ void Game::handle_event() {
 }
 
 void Game::setup_game() {
-    map_game1 = new Map("image\\backgroundgame.png", Vector2D(0, 0), 1);
-    map_game2 = new Map("image\\backgroundgame.png", Vector2D(SCREEN_WIDTH, 0), 1);
+    map_game1 = new Map("image\\backgroundgame.png", Vector2D(0, 0), 1, 1);
+    map_game2 = new Map("image\\backgroundgame.png", Vector2D(SCREEN_WIDTH, 0), 1, 1);
 
-    character = new Character("image\\archer_walk.png", Vector2D(SCREEN_WIDTH/2, GROUND_HEIGHT - 100), 8, Vector2D(10, 25));
+    character = new Character("image\\archer_walk.png", Vector2D(SCREEN_WIDTH/2, GROUND_HEIGHT - 100), 8, 80, Vector2D(10, 25));
 
-    dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, Vector2D(0, 0));
-    wolf = new Wolf("image\\wolf.png", Vector2D(SCREEN_WIDTH, GROUND_HEIGHT - 64), 8, Vector2D(-8, 0));
-    bat = new Bat("image\\bat.png", Vector2D(SCREEN_WIDTH, 200), 4, Vector2D(-5, 2));
+    dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, 100, Vector2D(0, 0));
+    wolf = new Wolf("image\\wolf.png", Vector2D(SCREEN_WIDTH, GROUND_HEIGHT - 64), 8, 80, Vector2D(-8, 0));
+    bat = new Bat("image\\bat.png", Vector2D(SCREEN_WIDTH, 200), 4, 80, Vector2D(-5, 2));
+    goat = new Wolf("image\\goat1.png", Vector2D(0, GROUND_HEIGHT - 450), 4, 150, Vector2D(5, 0));
+
 }
 
 void Game::update_game() {
@@ -65,16 +68,18 @@ void Game::update_game() {
     dragon->update();
     wolf->update();
     bat->update();
+    goat->update();
 }
 
 void Game::render_game() {
     map_game1->draw();
     map_game2->draw();
 
-    character->draw();
+    goat->draw();
     dragon->draw(SDL_FLIP_HORIZONTAL);
     wolf->draw();
     bat->draw();
+    character->draw();
 }
 
 void Game::clean_game() {

@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(const char* filePath, Vector2D position, int numFrame, Vector2D vel) : TextureManager(filePath, position, numFrame) {
+Enemy::Enemy(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel) : TextureManager(filePath, position, numFrame, speed) {
     velocity = vel;
 }
 

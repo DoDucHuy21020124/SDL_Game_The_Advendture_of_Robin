@@ -22,7 +22,7 @@ private :
     move_type move_direction;
 
 public :
-    Character(const char* filePath, Vector2D position, int numFrame, Vector2D vel);
+    Character(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Character();
 
 

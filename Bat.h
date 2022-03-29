@@ -5,7 +5,7 @@
 
 class Bat : public Enemy {
 public :
-    Bat(const char* filePath, Vector2D position, int numFrame, Vector2D vel);
+    Bat(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Bat();
 
 };

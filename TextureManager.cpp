@@ -2,11 +2,11 @@
 #include "GeneralFunction.h"
 #include "Game.h"
 
-TextureManager::TextureManager(const char* filePath, Vector2D position, int numFrame) {
+TextureManager::TextureManager(const char* filePath, Vector2D position, int numFrame, int speed_) {
     file_path = filePath;
     frame = 0;
     num_frame = numFrame;
-    speed = 80;
+    speed = speed_;
     texture = load_texture(Game::renderer, file_path);
     SDL_QueryTexture(texture, NULL, NULL, &srcRect.w, &srcRect.h);
     srcRect.w = srcRect.w/num_frame;

@@ -5,7 +5,7 @@
 
 class Wolf : public Enemy {
 public :
-    Wolf(const char* filePath, Vector2D position, int numFrame, Vector2D vel);
+    Wolf(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Wolf();
 };
 
