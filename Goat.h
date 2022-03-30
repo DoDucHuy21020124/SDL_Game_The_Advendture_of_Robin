@@ -22,11 +22,11 @@ public :
     Goat(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Goat();
 
-    void init_weapon();
+    void init_weapon(const int& x_pos);
     void remove_weapon(const int& index);
     void check_weapon();
     void update_image();
-    void attack();
+    void attack(const int& x_pos);
     void appear();
     void update();
     void draw();

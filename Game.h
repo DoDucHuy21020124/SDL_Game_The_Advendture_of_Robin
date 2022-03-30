@@ -7,6 +7,7 @@
 #include "Wolf.h"
 #include "Dragon.h"
 #include "Bat.h"
+#include "Goat.h"
 
 class Game {
 private :
@@ -24,7 +25,7 @@ public :
     static Wolf* wolf;
     static Dragon* dragon;
     static Bat* bat;
-    static Wolf* goat;
+    static Goat* goat;
 
     bool get_is_running() const {return is_running;}
     bool get_game_over() const {return game_over;}

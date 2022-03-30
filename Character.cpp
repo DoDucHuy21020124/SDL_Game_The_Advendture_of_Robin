@@ -32,6 +32,25 @@ void Character::handle_move() {
     if ( destRect.y == GROUND_HEIGHT - 100 ) on_ground = true;
 }
 
+void Character::init_weapon() {
+    Weapon* arrow = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0));
+    weapon.push_back(arrow);
+}
+
+void Character::remove_weapon(const int& index) {
+    if ( index < weapon.size() && weapon.size() > 0 ) {
+        weapon.erase(weapon.begin() + index);
+    }
+}
+
+void Character::check_weapon() {
+    for ( int i = 0; i < weapon.size(); ) {
+        if ( weapon[i]->get_xpos() > SCREEN_WIDTH ) weapon[i]->set_is_move(false);
+        if ( !weapon[i]->get_is_move() ) remove_weapon(i);
+        else ++i;
+    }
+}
+
 void Character::handle_event() {
     if ( Game::g_event.type == SDL_KEYDOWN ) {
         switch(Game::g_event.key.keysym.sym) {
@@ -75,6 +94,7 @@ void Character::handle_event() {
     if ( Game::g_event.type == SDL_MOUSEBUTTONDOWN ) {
         if ( Game::g_event.button.button == SDL_BUTTON_LEFT ) {
             move_direction.attack = 1;
+            init_weapon();
         }
     }
 
@@ -105,4 +125,14 @@ void Character::update() {
     handle_move();
     update_image();
     TextureManager::update();
+    for ( int i = 0; i < weapon.size(); ++i ) {
+        weapon[i]->update();
+    }
+}
+
+void Character::draw() {
+    TextureManager::draw();
+    for ( int i = 0; i < weapon.size(); ++i ) {
+        weapon[i]->draw();
+    }
 }
