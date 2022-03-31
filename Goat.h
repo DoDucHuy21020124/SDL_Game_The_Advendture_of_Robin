@@ -22,6 +22,9 @@ public :
     Goat(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Goat();
 
+    std::vector<Weapon*> get_weapon() const {return weapon;}
+    std::vector<Weapon*> set_weapon(const std::vector<Weapon*> weapon_) {weapon = weapon_;}
+
     void init_weapon(const int& x_pos);
     void remove_weapon(const int& index);
     void check_weapon();
@@ -30,6 +33,7 @@ public :
     void appear();
     void update();
     void draw();
+    void clear_up();
 };
 
 #endif // GOAT_H

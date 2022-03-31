@@ -28,6 +28,8 @@ public :
     ~Character();
 
     void set_velocity(const Vector2D& vel) {velocity = vel;}
+    std::vector<Weapon*> get_weapon() const {return weapon;}
+    std::vector<Weapon*> set_weapon(const std::vector<Weapon*>& weapon_) {weapon = weapon_;}
 
     void init_weapon();
     void remove_weapon(const int& index);

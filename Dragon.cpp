@@ -6,14 +6,7 @@ Dragon::Dragon(const char* filePath, Vector2D position, int numFrame, int speed,
 }
 
 Dragon::~Dragon() {
-    for ( int i = 0; i < weapon.size(); ++i ) {
-        Weapon* fire = weapon[i];
-        if ( fire != NULL ) {
-            delete fire;
-            fire = NULL;
-        }
-    }
-    weapon.clear();
+    clear_up();
 }
 
 void Dragon::init_weapon() {
@@ -49,4 +42,15 @@ void Dragon::draw(SDL_RendererFlip render_flip) {
     for ( int i = 0; i < weapon.size(); ++i ) {
         weapon[i]->draw();
     }
+}
+
+void Dragon::clear_up() {
+    for ( int i = 0; i < weapon.size(); ++i ) {
+        Weapon* fire = weapon[i];
+        if ( fire != NULL ) {
+            delete fire;
+            fire = NULL;
+        }
+    }
+    weapon.clear();
 }

@@ -13,11 +13,15 @@ public :
     Dragon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
     ~Dragon();
 
+    std::vector<Weapon*> get_weapon() const {return weapon;}
+    std::vector<Weapon*> set_weapon(const std::vector<Weapon*> weapon_) {weapon = weapon_;}
+
     void init_weapon();
     void remove_weapon(const int& index);
     void check_weapon();
     void update();
     void draw(SDL_RendererFlip render_flip);
+    void clear_up();
 };
 
 #endif // DRAGON_H

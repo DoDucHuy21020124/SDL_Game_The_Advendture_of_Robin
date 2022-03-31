@@ -7,12 +7,12 @@ Map* Game::map_game1;
 Map* Game::map_game2;
 SDL_Event Game::g_event;
 
-Character* Game::character;
-Wolf* Game::wolf;
-Dragon* Game::dragon;
-Bat* Game::bat;
-Goat* Game::goat;
+int Game::score;
 
+Character* Game::character;
+Goat* Game::goat;
+Dragon* Game::dragon;
+EnemyManager* Game::enemy_list;
 
 void Game::game_init() {
     if ( SDL_Init(SDL_INIT_EVERYTHING) == 0 ) {
@@ -53,23 +53,70 @@ void Game::setup_game() {
 
     character = new Character("image\\archer_walk.png", Vector2D(SCREEN_WIDTH/2, GROUND_HEIGHT - 100), 8, 80, Vector2D(10, 25));
 
-    dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, 100, Vector2D(0, 0));
-    wolf = new Wolf("image\\wolf.png", Vector2D(SCREEN_WIDTH, GROUND_HEIGHT - 64), 8, 80, Vector2D(-8, 0));
-    bat = new Bat("image\\bat.png", Vector2D(SCREEN_WIDTH, 200), 4, 80, Vector2D(-5, 2));
     goat = new Goat("image\\goat.png", Vector2D(0, GROUND_HEIGHT - 450), 4, 150, Vector2D(5, 0));
+    dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, 100, Vector2D(0, 0));
+    enemy_list = new EnemyManager();
 
+    time_start = SDL_GetTicks64();
+    play_time = 1;
+    score = 0;
+}
+
+void Game::character_collision() {
+    if ( check_collision(character->get_destRect(), dragon->get_destRect()) ) {
+        --play_time;
+    }
+    for ( int i = 0; i < dragon->get_weapon().size(); ++i ) {
+        if ( check_collision(dragon->get_weapon()[i]->get_destRect(), character->get_destRect()) ) {
+            --play_time;
+        }
+    }
+    for ( int i = 0; i < goat->get_weapon().size(); ++i ) {
+        if (check_collision(goat->get_weapon()[i]->get_destRect(), character->get_destRect())) {
+            --play_time;
+            break;
+        }
+    }
+    for ( int i = 0; i < enemy_list->get_enemy_list().size(); ++i ) {
+        if ( check_collision(enemy_list->get_enemy_list()[i]->get_destRect(), character->get_destRect())) {
+            --play_time;
+            break;
+        }
+    }
+    if ( play_time <= 0 ) {
+        game_over = true;
+        is_running = false;
+    }
+}
+
+void Game::destroy_enemy() {
+    for ( int i = 0; i < character->get_weapon().size(); ++i ) {
+        for ( int j = 0; j < enemy_list->get_enemy_list().size(); ++j ) {
+            if ( check_collision(character->get_weapon()[i]->get_destRect(), enemy_list->get_enemy_list()[j]->get_destRect() )) {
+                enemy_list->get_enemy_list()[j]->set_is_destroyed(true);
+                character->get_weapon()[i]->set_is_move(false);
+                score += enemy_list->get_enemy_list()[j]->get_hp();
+                std::cout << score << std::endl;
+            }
+        }
+    }
 }
 
 void Game::update_game() {
     map_game1->update();
     map_game2->update();
 
+    character_collision();
+    destroy_enemy();
+
     character->update();
-    dragon->update();
-    wolf->update();
-    bat->update();
     goat->attack(character->get_xpos());
     goat->update();
+    dragon->update();
+
+    enemy_list->init_enemy_bat(character->get_xpos(), character->get_ypos());
+    enemy_list->init_enemy_wolf();
+    enemy_list->update();
 }
 
 void Game::render_game() {
@@ -78,8 +125,7 @@ void Game::render_game() {
 
     goat->draw();
     dragon->draw(SDL_FLIP_HORIZONTAL);
-    wolf->draw();
-    bat->draw();
+    enemy_list->draw();
     character->draw();
 }
 

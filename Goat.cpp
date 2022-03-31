@@ -34,7 +34,7 @@ void Goat::remove_weapon(const int& index) {
 
 void Goat::check_weapon() {
     for ( int i = 0; i < weapon.size(); ) {
-        if ( weapon[i]->get_ypos() >= GROUND_HEIGHT ) weapon[i]->set_is_move(false);
+        if ( weapon[i]->get_ypos() + weapon[i]->get_destRect().w >= GROUND_HEIGHT ) weapon[i]->set_is_move(false);
         if ( !weapon[i]->get_is_move() ) remove_weapon(i);
         else ++i;
     }

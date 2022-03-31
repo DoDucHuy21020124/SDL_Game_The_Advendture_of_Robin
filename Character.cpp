@@ -54,18 +54,18 @@ void Character::check_weapon() {
 void Character::handle_event() {
     if ( Game::g_event.type == SDL_KEYDOWN ) {
         switch(Game::g_event.key.keysym.sym) {
-        case SDLK_UP :
+        case SDLK_w :
             if ( on_ground ) {
                 on_ground = false;
             }
             break;
-        case SDLK_DOWN :
+        case SDLK_s :
             break;
-        case SDLK_RIGHT :
+        case SDLK_d :
             move_direction.move_right = 1;
             move_direction.move_left = 0;
             break;
-        case SDLK_LEFT :
+        case SDLK_a :
             move_direction.move_right = 0;
             move_direction.move_left = 1;
             break;
@@ -76,14 +76,14 @@ void Character::handle_event() {
 
     if ( Game::g_event.type == SDL_KEYUP ) {
         switch(Game::g_event.key.keysym.sym) {
-        case SDLK_UP :
+        case SDLK_w :
             break;
-        case SDLK_DOWN :
+        case SDLK_s :
             break;
-        case SDLK_RIGHT :
+        case SDLK_d :
             move_direction.move_right = 0;
             break;
-        case SDLK_LEFT :
+        case SDLK_a :
             move_direction.move_left = 0;
             break;
         default :

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <time.h>
+#include <windows.h>
 
 Game* game = NULL;
 bool is_played = false;
@@ -42,6 +43,9 @@ int main(int argc, char* argv[]) {
 
         } while ( !game->get_game_over() );
     } while( game->get_is_running());
+
+    game->clean_game();
+    Sleep(3000);
     return 0;
 }
 

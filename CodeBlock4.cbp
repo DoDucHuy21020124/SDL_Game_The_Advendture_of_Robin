@@ -39,6 +39,8 @@
 		<Unit filename="Dragon.h" />
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
+		<Unit filename="EnemyManager.cpp" />
+		<Unit filename="EnemyManager.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="GeneralFunction.cpp" />
