@@ -50,22 +50,25 @@ void EnemyManager::update() {
     check_enemy();
     for ( int i = 0; i < enemy_list.size(); ++i ) {
         enemy_list[i]->update();
+        if ( enemy_list[i]->get_is_destroying() ) {
+            enemy_list[i]->get_collision_effect()->update();
+            if ( enemy_list[i]->get_collision_effect()->get_frame() >= enemy_list[i]->get_collision_effect()->get_num_frame() - 1) {
+                enemy_list[i]->set_is_destroying(false);
+                enemy_list[i]->set_is_destroyed(true);
+            }
+        }
     }
 }
 
 void EnemyManager::draw() {
     for ( int i = 0; i < enemy_list.size(); ++i ) {
         enemy_list[i]->draw();
+        if ( enemy_list[i]->get_is_destroying() ) {
+            enemy_list[i]->play_collision_effect();
+        }
     }
 }
 
 void EnemyManager::clear_up() {
-    for ( int i = 0; i < enemy_list.size(); ++i ) {
-        Enemy* enemy = enemy_list[i];
-        if ( enemy != NULL ) {
-            delete enemy;
-            enemy = NULL;
-        }
-    }
     enemy_list.clear();
 }

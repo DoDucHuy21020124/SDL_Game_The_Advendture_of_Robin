@@ -11,18 +11,11 @@ Goat::Goat(const char* filePath, Vector2D position, int numFrame, int speed, Vec
 }
 
 Goat::~Goat() {
-    for ( int i = 0; i < weapon.size(); ++i ) {
-        Weapon* fire = weapon[i];
-        if ( fire != NULL ) {
-            delete fire;
-            fire = NULL;
-        }
-    }
-    weapon.clear();
+    clear_up();
 }
 
 void Goat::init_weapon(const int& x_pos) {
-    Weapon* fire = new Weapon("image\\fire_sprite.png", Vector2D(x_pos, 0), 10, 80, Vector2D(0, 5));
+    Weapon* fire = new Weapon("image\\fire_sprite.png", Vector2D(x_pos, 0), 10, 80, Vector2D(0, 5), 10);
     weapon.push_back(fire);
 }
 
@@ -94,4 +87,8 @@ void Goat::draw() {
     for ( int i = 0; i < weapon.size(); ++i ) {
         weapon[i]->draw();
     }
+}
+
+void Goat::clear_up() {
+    weapon.clear();
 }

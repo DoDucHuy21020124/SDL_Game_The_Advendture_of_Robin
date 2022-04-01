@@ -10,7 +10,7 @@ Dragon::~Dragon() {
 }
 
 void Dragon::init_weapon() {
-    Weapon* fire = new Weapon("image\\fire_ball.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/1.1), 4, 80, Vector2D(5, 0));
+    Weapon* fire = new Weapon("image\\fire_ball.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/1.1), 4, 80, Vector2D(5, 0), 10);
     weapon.push_back(fire);
 }
 
@@ -45,12 +45,5 @@ void Dragon::draw(SDL_RendererFlip render_flip) {
 }
 
 void Dragon::clear_up() {
-    for ( int i = 0; i < weapon.size(); ++i ) {
-        Weapon* fire = weapon[i];
-        if ( fire != NULL ) {
-            delete fire;
-            fire = NULL;
-        }
-    }
     weapon.clear();
 }

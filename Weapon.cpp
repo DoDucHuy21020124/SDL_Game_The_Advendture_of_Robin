@@ -1,8 +1,9 @@
 #include "Weapon.h"
 
-Weapon::Weapon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel) : TextureManager(filePath, position, numFrame, speed) {
+Weapon::Weapon(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel, int damage_) : TextureManager(filePath, position, numFrame, speed) {
     velocity = vel;
     is_move = true;
+    damage = damage_;
 }
 
 Weapon::~Weapon() {
@@ -18,3 +19,4 @@ void Weapon::update() {
     handle_move();
     TextureManager::update();
 }
+

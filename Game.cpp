@@ -58,48 +58,90 @@ void Game::setup_game() {
     enemy_list = new EnemyManager();
 
     time_start = SDL_GetTicks64();
-    play_time = 1;
+    play_time = 3;
     score = 0;
 }
 
 void Game::character_collision() {
-    if ( check_collision(character->get_destRect(), dragon->get_destRect()) ) {
-        --play_time;
-    }
-    for ( int i = 0; i < dragon->get_weapon().size(); ++i ) {
-        if ( check_collision(dragon->get_weapon()[i]->get_destRect(), character->get_destRect()) ) {
+    if ( !character->get_is_destroyed() ) {
+        if ( check_collision(character->get_destRect(), dragon->get_destRect()) ) {
             --play_time;
+            character->set_is_destroyed(true);
         }
     }
-    for ( int i = 0; i < goat->get_weapon().size(); ++i ) {
-        if (check_collision(goat->get_weapon()[i]->get_destRect(), character->get_destRect())) {
-            --play_time;
-            break;
+    if ( !character->get_is_destroyed() ) {
+        for ( int i = 0; i < dragon->get_weapon().size(); ++i ) {
+            if ( check_collision(dragon->get_weapon()[i]->get_destRect(), character->get_destRect()) ) {
+                --play_time;
+                character->set_is_destroyed(true);
+            }
         }
     }
-    for ( int i = 0; i < enemy_list->get_enemy_list().size(); ++i ) {
-        if ( check_collision(enemy_list->get_enemy_list()[i]->get_destRect(), character->get_destRect())) {
-            --play_time;
-            break;
+    if ( !character->get_is_destroyed() ) {
+        for ( int i = 0; i < goat->get_weapon().size(); ++i ) {
+            if (check_collision(goat->get_weapon()[i]->get_destRect(), character->get_destRect())) {
+                --play_time;
+                character->set_is_destroyed(true);
+                break;
+            }
         }
     }
-    if ( play_time <= 0 ) {
-        game_over = true;
-        is_running = false;
+    if ( !character->get_is_destroyed() ) {
+        for ( int i = 0; i < enemy_list->get_enemy_list().size(); ++i ) {
+            if ( check_collision(enemy_list->get_enemy_list()[i]->get_destRect(), character->get_destRect()) && !enemy_list->get_enemy_list()[i]->get_is_destroying() && !enemy_list->get_enemy_list()[i]->get_is_destroyed() ) {
+                --play_time;
+                character->set_is_destroyed(true);
+                break;
+            }
+        }
     }
+
 }
 
 void Game::destroy_enemy() {
     for ( int i = 0; i < character->get_weapon().size(); ++i ) {
         for ( int j = 0; j < enemy_list->get_enemy_list().size(); ++j ) {
-            if ( check_collision(character->get_weapon()[i]->get_destRect(), enemy_list->get_enemy_list()[j]->get_destRect() )) {
-                enemy_list->get_enemy_list()[j]->set_is_destroyed(true);
+            if ( check_collision(character->get_weapon()[i]->get_destRect(), enemy_list->get_enemy_list()[j]->get_destRect()) && !enemy_list->get_enemy_list()[j]->get_is_destroying()) {
                 character->get_weapon()[i]->set_is_move(false);
-                score += enemy_list->get_enemy_list()[j]->get_hp();
-                std::cout << score << std::endl;
+                enemy_list->get_enemy_list()[j]->set_hp(enemy_list->get_enemy_list()[j]->get_hp() - character->get_weapon()[i]->get_damage() );
+                if (enemy_list->get_enemy_list()[j]->get_hp() <= 0 ) {
+                    enemy_list->get_enemy_list()[j]->set_is_destroying(true);
+                    enemy_list->get_enemy_list()[j]->set_velocity(Vector2D(0, 0));
+                    int x = enemy_list->get_enemy_list()[j]->get_xpos();
+                    int y = enemy_list->get_enemy_list()[j]->get_ypos();
+                    enemy_list->get_enemy_list()[j]->get_collision_effect()->set_xypos(Vector2D(float(x), float(y)));
+                    score += enemy_list->get_enemy_list()[j]->get_score();
+                    std::cout << score << std::endl;
+                }
             }
+                /*if ( enemys[j]->get_is_destroying() ) {
+                    if ( weapon[i]->get_frame() >= weapon[i]->get_num_frame() ) {
+                        enemys[j]->set_is_destroying(false);
+                        enemys[j]->set_is_destroyed(true);
+                        weapon[i]->set_is_move(false);
+                    }
+                    else {
+                        weapon[i]->
+                    }
+                }*/
         }
     }
+}
+
+void Game::reset_game() {
+    character->get_collision_effect()->set_frame(0);
+    character->set_is_destroyed(false);
+    character->set_xypos(Vector2D(SCREEN_WIDTH/2, GROUND_HEIGHT - 100));
+
+    goat->clear_up();
+    goat->set_xpos(-goat->get_destRect().w);
+    goat->set_is_appear(false);
+    goat->set_is_attacking(false);
+    dragon->clear_up();
+    dragon->set_frame(0);
+    enemy_list->clear_up();
+    enemy_list->set_time_start_bat(SDL_GetTicks64());
+    enemy_list->set_time_start_wolf(SDL_GetTicks64());
 }
 
 void Game::update_game() {
@@ -120,13 +162,43 @@ void Game::update_game() {
 }
 
 void Game::render_game() {
-    map_game1->draw();
-    map_game2->draw();
+    if ( character->get_is_destroyed() ) {
+        character->get_collision_effect()->set_xypos(Vector2D(character->get_xpos() + 15, character->get_ypos() + 20));
+        do {
+            SDL_RenderClear(renderer);
 
-    goat->draw();
-    dragon->draw(SDL_FLIP_HORIZONTAL);
-    enemy_list->draw();
-    character->draw();
+            map_game1->draw();
+            map_game2->draw();
+
+            goat->draw();
+            dragon->draw(SDL_FLIP_HORIZONTAL);
+            enemy_list->draw();
+            character->draw();
+            character->play_collision_effect();
+
+            SDL_RenderPresent(renderer);
+        } while ( character->get_collision_effect()->get_frame() < character->get_collision_effect()->get_num_frame() - 1);
+        SDL_Delay(1000);
+
+        if ( play_time <= 0 ) {
+            game_over = true;
+            is_running = false;
+        }
+
+        else {
+            reset_game();
+        }
+
+    }
+    else {
+        map_game1->draw();
+        map_game2->draw();
+
+        goat->draw();
+        dragon->draw(SDL_FLIP_HORIZONTAL);
+        enemy_list->draw();
+        character->draw();
+    }
 }
 
 void Game::clean_game() {

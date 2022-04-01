@@ -41,6 +41,7 @@ public :
     void handle_event();
     void character_collision();
     void destroy_enemy();
+    void reset_game();
     void update_game();
     void render_game();
     void clean_game();

@@ -25,6 +25,9 @@ public :
     int get_ypos() const {return destRect.y;}
     void set_ypos(const int& ypos) {destRect.y = ypos;}
     void set_xypos(const Vector2D& position) {destRect.x = int(position.x); destRect.y = int(position.y);}
+    int get_num_frame() const {return num_frame;}
+    int get_frame() const {return frame;}
+    void set_frame(const int& frame_) {frame = frame_;}
 
     SDL_Rect get_destRect() const {return destRect;}
 

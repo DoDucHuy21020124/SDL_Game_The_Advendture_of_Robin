@@ -5,6 +5,8 @@ Character::Character(const char* filePath, Vector2D position, int numFrame, int 
     velocity = vel;
     jump_speed = int(velocity.y);
     on_ground = true;
+    collision_effect = new TextureManager("image\\blood.png", Vector2D(0, 0), 6, 200);
+    is_destroyed = false;
 }
 
 Character::~Character() {
@@ -33,7 +35,7 @@ void Character::handle_move() {
 }
 
 void Character::init_weapon() {
-    Weapon* arrow = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0));
+    Weapon* arrow = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0), 1);
     weapon.push_back(arrow);
 }
 
@@ -120,10 +122,16 @@ void Character::update_image() {
     }
 }
 
+void Character::play_collision_effect() {
+    collision_effect->draw();
+    collision_effect->update();
+}
+
 void Character::update() {
     handle_event();
     handle_move();
     update_image();
+    check_weapon();
     TextureManager::update();
     for ( int i = 0; i < weapon.size(); ++i ) {
         weapon[i]->update();

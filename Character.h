@@ -22,6 +22,8 @@ private :
     bool on_ground;
     move_type move_direction;
     std::vector<Weapon*> weapon;
+    TextureManager* collision_effect;
+    bool is_destroyed;
 
 public :
     Character(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
@@ -29,7 +31,10 @@ public :
 
     void set_velocity(const Vector2D& vel) {velocity = vel;}
     std::vector<Weapon*> get_weapon() const {return weapon;}
-    std::vector<Weapon*> set_weapon(const std::vector<Weapon*>& weapon_) {weapon = weapon_;}
+    void set_weapon(const std::vector<Weapon*>& weapon_) {weapon = weapon_;}
+    TextureManager* get_collision_effect() const {return collision_effect;}
+    bool get_is_destroyed() const {return is_destroyed;}
+    void set_is_destroyed(const bool& is_destroyed_) {is_destroyed = is_destroyed_;}
 
     void init_weapon();
     void remove_weapon(const int& index);
@@ -37,6 +42,7 @@ public :
     void handle_event();
     void handle_move();
     void update_image();
+    void play_collision_effect();
     void update();
     void draw();
 
