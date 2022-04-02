@@ -33,6 +33,10 @@
 		</Compiler>
 		<Unit filename="Bat.cpp" />
 		<Unit filename="Bat.h" />
+		<Unit filename="Bonus.cpp" />
+		<Unit filename="Bonus.h" />
+		<Unit filename="BonusManager.cpp" />
+		<Unit filename="BonusManager.h" />
 		<Unit filename="Character.cpp" />
 		<Unit filename="Character.h" />
 		<Unit filename="Dragon.cpp" />

@@ -69,7 +69,7 @@
 1648518900 c:\users\admin\documents\codeblock4\weapon.h
 	"TextureManager.h"
 
-1648800805 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\character.cpp
+1648820465 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\character.cpp
 	"Character.h"
 	"Game.h"
 
@@ -113,7 +113,7 @@
 1648796773 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\enemy.cpp
 	"Enemy.h"
 
-1648804806 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
+1648833406 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
 	<iostream>
 	"Game.h"
 	"Vector2D.h"
@@ -182,4 +182,10 @@
 	<vector>
 	"Bat.h"
 	"Wolf.h"
+
+1648835871 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\bonus.cpp
+	"Bonus.h"
+
+1648835871 c:\users\admin\documents\sdl_game_the_advendture_of_robin\bonus.h
+	"TextureManager.h"
 

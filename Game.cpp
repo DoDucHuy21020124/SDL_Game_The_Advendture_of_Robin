@@ -71,16 +71,18 @@ void Game::character_collision() {
     }
     if ( !character->get_is_destroyed() ) {
         for ( int i = 0; i < dragon->get_weapon().size(); ++i ) {
-            if ( check_collision(dragon->get_weapon()[i]->get_destRect(), character->get_destRect()) ) {
+            if ( check_collision(dragon->get_weapon()[i]->get_destRect(), character->get_destRect()) && dragon->get_weapon()[i]->get_is_move() && !character->get_is_destroyed() ) {
                 --play_time;
+                dragon->get_weapon()[i]->set_is_move(false);
                 character->set_is_destroyed(true);
             }
         }
     }
     if ( !character->get_is_destroyed() ) {
         for ( int i = 0; i < goat->get_weapon().size(); ++i ) {
-            if (check_collision(goat->get_weapon()[i]->get_destRect(), character->get_destRect())) {
+            if (check_collision(goat->get_weapon()[i]->get_destRect(), character->get_destRect()) && goat->get_weapon()[i]->get_is_move() && !character->get_is_destroyed()) {
                 --play_time;
+                goat->get_weapon()[i]->set_is_move(false);
                 character->set_is_destroyed(true);
                 break;
             }

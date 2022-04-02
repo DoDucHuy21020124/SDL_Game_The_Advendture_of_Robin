@@ -96,7 +96,7 @@ void Character::handle_event() {
     if ( Game::g_event.type == SDL_MOUSEBUTTONDOWN ) {
         if ( Game::g_event.button.button == SDL_BUTTON_LEFT ) {
             move_direction.attack = 1;
-            init_weapon();
+            if ( weapon.size() < 5 ) init_weapon();
         }
     }
 
