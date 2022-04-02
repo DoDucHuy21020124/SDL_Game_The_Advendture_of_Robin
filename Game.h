@@ -8,6 +8,7 @@
 #include "Goat.h"
 #include "Dragon.h"
 #include "EnemyManager.h"
+#include "BonusManager.h"
 
 class Game {
 private :
@@ -28,6 +29,7 @@ public :
     static Goat* goat;
     static Dragon* dragon;
     static EnemyManager* enemy_list;
+    static BonusManager* bonus_list;
 
     bool get_is_running() const {return is_running;}
     bool get_game_over() const {return game_over;}
@@ -41,6 +43,7 @@ public :
     void handle_event();
     void character_collision();
     void destroy_enemy();
+    void take_bonus();
     void reset_game();
     void update_game();
     void render_game();

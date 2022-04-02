@@ -7,6 +7,8 @@ Character::Character(const char* filePath, Vector2D position, int numFrame, int 
     on_ground = true;
     collision_effect = new TextureManager("image\\blood.png", Vector2D(0, 0), 6, 200);
     is_destroyed = false;
+    weapon_type = 0;
+    time_special_weapon = 10000;
 }
 
 Character::~Character() {
@@ -34,9 +36,33 @@ void Character::handle_move() {
     if ( destRect.y == GROUND_HEIGHT - 100 ) on_ground = true;
 }
 
-void Character::init_weapon() {
-    Weapon* arrow = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0), 1);
-    weapon.push_back(arrow);
+void Character::init_weapon(int weapon_type_) {
+    switch(weapon_type_) {
+    case 0:
+        {
+            Weapon* arrow = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0), 1);
+            weapon.push_back(arrow);
+            break;
+        }
+    case 1:
+        {
+            Weapon* arrow1 = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 5), 1);
+            Weapon* arrow2 = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0), 1);
+            Weapon* arrow3 = new Weapon("image\\arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, -5), 1);
+            weapon.push_back(arrow1);
+            weapon.push_back(arrow2);
+            weapon.push_back(arrow3);
+        }
+        break;
+    case 2:
+        {
+            Weapon* arrow = new Weapon("image\\fire_arrow.png", Vector2D(destRect.x + destRect.w, destRect.y + destRect.h/4), 6, 80, Vector2D(5, 0), 3);
+            weapon.push_back(arrow);
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 void Character::remove_weapon(const int& index) {
@@ -50,6 +76,9 @@ void Character::check_weapon() {
         if ( weapon[i]->get_xpos() > SCREEN_WIDTH ) weapon[i]->set_is_move(false);
         if ( !weapon[i]->get_is_move() ) remove_weapon(i);
         else ++i;
+    }
+    if ( weapon_type != 0 && SDL_GetTicks64() - time_start > time_special_weapon ) {
+        weapon_type = 0;
     }
 }
 
@@ -96,7 +125,7 @@ void Character::handle_event() {
     if ( Game::g_event.type == SDL_MOUSEBUTTONDOWN ) {
         if ( Game::g_event.button.button == SDL_BUTTON_LEFT ) {
             move_direction.attack = 1;
-            if ( weapon.size() < 5 ) init_weapon();
+            init_weapon(weapon_type);
         }
     }
 

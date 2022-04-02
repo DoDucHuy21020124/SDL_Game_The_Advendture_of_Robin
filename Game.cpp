@@ -13,6 +13,7 @@ Character* Game::character;
 Goat* Game::goat;
 Dragon* Game::dragon;
 EnemyManager* Game::enemy_list;
+BonusManager* Game::bonus_list;
 
 void Game::game_init() {
     if ( SDL_Init(SDL_INIT_EVERYTHING) == 0 ) {
@@ -56,6 +57,7 @@ void Game::setup_game() {
     goat = new Goat("image\\goat.png", Vector2D(0, GROUND_HEIGHT - 450), 4, 150, Vector2D(5, 0));
     dragon = new Dragon("image\\dragon.png", Vector2D(-300, GROUND_HEIGHT - 512), 32, 100, Vector2D(0, 0));
     enemy_list = new EnemyManager();
+    bonus_list = new BonusManager();
 
     time_start = SDL_GetTicks64();
     play_time = 3;
@@ -116,16 +118,33 @@ void Game::destroy_enemy() {
                     std::cout << score << std::endl;
                 }
             }
-                /*if ( enemys[j]->get_is_destroying() ) {
-                    if ( weapon[i]->get_frame() >= weapon[i]->get_num_frame() ) {
-                        enemys[j]->set_is_destroying(false);
-                        enemys[j]->set_is_destroyed(true);
-                        weapon[i]->set_is_move(false);
-                    }
-                    else {
-                        weapon[i]->
-                    }
-                }*/
+        }
+    }
+}
+
+void Game::take_bonus() {
+    for ( int i = 0; i < bonus_list->get_bonus_list().size(); ++i ) {
+        if ( check_collision(bonus_list->get_bonus_list()[i]->get_destRect(), character->get_destRect()) && bonus_list->get_bonus_list()[i]->get_is_move()) {
+            switch(bonus_list->get_bonus_list()[i]->get_bonus_type()) {
+            case 0:
+                ++play_time;
+                break;
+            case 1:
+                score += 5;
+                std::cout << score << std::endl;
+                break;
+            case 2:
+                character->set_weapon_type(1);
+                character->set_time_start(SDL_GetTicks64());
+                break;
+            case 3:
+                character->set_weapon_type(2);
+                character->set_time_start(SDL_GetTicks64());
+                break;
+            default :
+                break;
+            }
+            bonus_list->get_bonus_list()[i]->set_is_move(false);
         }
     }
 }
@@ -152,6 +171,7 @@ void Game::update_game() {
 
     character_collision();
     destroy_enemy();
+    take_bonus();
 
     character->update();
     goat->attack(character->get_xpos());
@@ -161,6 +181,9 @@ void Game::update_game() {
     enemy_list->init_enemy_bat(character->get_xpos(), character->get_ypos());
     enemy_list->init_enemy_wolf();
     enemy_list->update();
+
+    bonus_list->init_bonus();
+    bonus_list->update();
 }
 
 void Game::render_game() {
@@ -174,6 +197,7 @@ void Game::render_game() {
 
             goat->draw();
             dragon->draw(SDL_FLIP_HORIZONTAL);
+            bonus_list->draw();
             enemy_list->draw();
             character->draw();
             character->play_collision_effect();
@@ -198,6 +222,7 @@ void Game::render_game() {
 
         goat->draw();
         dragon->draw(SDL_FLIP_HORIZONTAL);
+        bonus_list->draw();
         enemy_list->draw();
         character->draw();
     }

@@ -14,16 +14,16 @@ Bonus* BonusManager::make_bonus(int bonus_type) {
     Bonus* bonus = NULL;
     switch(bonus_type) {
     case 0 :
-        bonus = new Bonus("image\\heart_coin.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 32)), 1, 1, Vector2D(-2, 0));
+        bonus = new Bonus("image\\heart_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 0);
         break;
     case 1:
-        bonus = new Bonus("image\\bonus_score_coin.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 32)), 1, 1, Vector2D(-2, 0));
+        bonus = new Bonus("image\\bonus_score_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 1);
         break;
     case 2:
-        bonus = new Bonus("image\\multi_arrow_coin.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 32)), 1, 1, Vector2D(-2, 0));
+        bonus = new Bonus("image\\multi_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 2);
         break;
     case 3:
-        bonus = new Bonus("image\\fire_arrow_coin.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 32)), 1, 1, Vector2D(-2, 0));
+        bonus = new Bonus("image\\fire_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 3);
         break;
     default:
         break;
@@ -53,6 +53,8 @@ void BonusManager::check_bonus() {
 }
 
 void BonusManager::update() {
+    init_bonus();
+    check_bonus();
     for ( int i = 0; i < bonus_list.size(); ++i ) {
         bonus_list[i]->update();
     }

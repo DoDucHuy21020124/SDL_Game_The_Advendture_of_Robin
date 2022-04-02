@@ -24,6 +24,9 @@ private :
     std::vector<Weapon*> weapon;
     TextureManager* collision_effect;
     bool is_destroyed;
+    int weapon_type;
+    Uint64 time_special_weapon;
+    Uint64 time_start;
 
 public :
     Character(const char* filePath, Vector2D position, int numFrame, int speed, Vector2D vel);
@@ -35,8 +38,11 @@ public :
     TextureManager* get_collision_effect() const {return collision_effect;}
     bool get_is_destroyed() const {return is_destroyed;}
     void set_is_destroyed(const bool& is_destroyed_) {is_destroyed = is_destroyed_;}
+    int get_weapon_type() const {return weapon_type;}
+    void set_weapon_type(const int& weapon_type_) {weapon_type = weapon_type_;}
+    void set_time_start(const Uint64& time) {time_start = time;}
 
-    void init_weapon();
+    void init_weapon(int weapon_type_);
     void remove_weapon(const int& index);
     void check_weapon();
     void handle_event();

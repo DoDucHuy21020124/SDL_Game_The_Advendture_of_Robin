@@ -14,7 +14,10 @@ public :
     BonusManager();
     ~BonusManager();
 
-    Bonus* make_bonus();
+    std::vector<Bonus*> get_bonus_list() const {return bonus_list;}
+    void set_bonus_list(const std::vector<Bonus*>& bonus_list_) {bonus_list = bonus_list_;}
+
+    Bonus* make_bonus(int bonus_type);
     void init_bonus();
     void remove_bonus(const int& index);
     void check_bonus();
