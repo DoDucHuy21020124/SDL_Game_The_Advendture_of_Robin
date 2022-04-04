@@ -9,6 +9,7 @@
 #include "Dragon.h"
 #include "EnemyManager.h"
 #include "BonusManager.h"
+#include "TextManager.h"
 
 class Game {
 private :
@@ -31,6 +32,11 @@ public :
     static EnemyManager* enemy_list;
     static BonusManager* bonus_list;
 
+    static TextManager* show_score;
+    static TextManager* show_time;
+    static TextManager* show_hp;
+    static TextureManager* heart;
+
     bool get_is_running() const {return is_running;}
     bool get_game_over() const {return game_over;}
     void set_is_running(const bool& running) {is_running = running;}
@@ -38,6 +44,8 @@ public :
 
 
     void game_init();
+    int make_menu();
+    int make_play_again();
     void enemy_list_manager();
     void setup_game();
     void handle_event();

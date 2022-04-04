@@ -53,6 +53,8 @@
 		<Unit filename="Goat.h" />
 		<Unit filename="Map.cpp" />
 		<Unit filename="Map.h" />
+		<Unit filename="TextManager.cpp" />
+		<Unit filename="TextManager.h" />
 		<Unit filename="TextureManager.cpp" />
 		<Unit filename="TextureManager.h" />
 		<Unit filename="Vector2D.cpp" />

@@ -2,7 +2,7 @@
 #include "GeneralFunction.h"
 
 BonusManager::BonusManager() {
-    time_wait = 8000;
+    time_wait = 5000;
     time_start = SDL_GetTicks64();
 }
 
@@ -14,16 +14,16 @@ Bonus* BonusManager::make_bonus(int bonus_type) {
     Bonus* bonus = NULL;
     switch(bonus_type) {
     case 0 :
-        bonus = new Bonus("image\\heart_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 0);
+        bonus = new Bonus("image\\heart_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16 - 150) + 150), 1, 1, Vector2D(-5, 0), 0);
         break;
     case 1:
-        bonus = new Bonus("image\\bonus_score_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 1);
+        bonus = new Bonus("image\\bonus_score_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16 - 150) + 150), 1, 1, Vector2D(-5, 0), 1);
         break;
     case 2:
-        bonus = new Bonus("image\\multi_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 2);
+        bonus = new Bonus("image\\multi_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16 - 150) + 150), 1, 1, Vector2D(-5, 0), 2);
         break;
     case 3:
-        bonus = new Bonus("image\\fire_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16)), 1, 1, Vector2D(-5, 0), 3);
+        bonus = new Bonus("image\\fire_arrow_coin1.png", Vector2D(SCREEN_WIDTH, rand()%(GROUND_HEIGHT - 16 - 150) + 150), 1, 1, Vector2D(-5, 0), 3);
         break;
     default:
         break;

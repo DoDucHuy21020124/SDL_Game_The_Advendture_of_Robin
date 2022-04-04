@@ -26,6 +26,7 @@ public :
     void set_weapon(const std::vector<Weapon*> weapon_) {weapon = weapon_;}
     void set_is_appear(const bool& is_appear_) {is_appear = is_appear_;}
     void set_is_attacking(const bool& is_attacking_) {is_attacking = is_attacking_;}
+    void set_num_attack(const int& num) {num_attack = num;}
 
     void init_weapon(const int& x_pos);
     void remove_weapon(const int& index);

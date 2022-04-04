@@ -124,6 +124,7 @@ void Character::handle_event() {
 
     if ( Game::g_event.type == SDL_MOUSEBUTTONDOWN ) {
         if ( Game::g_event.button.button == SDL_BUTTON_LEFT ) {
+            play_sound_effect("music\\arrow.wav");
             move_direction.attack = 1;
             init_weapon(weapon_type);
         }

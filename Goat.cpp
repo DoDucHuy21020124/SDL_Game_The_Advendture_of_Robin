@@ -48,6 +48,7 @@ void Goat::attack(const int& x_pos) {
         if ( SDL_GetTicks64() - time_start >= time_wait ) {
             if ( file_path != "image\\goat_attack.png" ) set_file_path("image\\goat_attack.png", 14);
             else if ( frame >= num_frame - 1 ) {
+                play_sound_effect("music\\fire_ball.wav");
                 init_weapon(x_pos);
                 ++num_attack;
                 set_file_path("image\\goat.png", 4);

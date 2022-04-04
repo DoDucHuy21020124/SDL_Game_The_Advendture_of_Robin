@@ -30,7 +30,10 @@ void Dragon::check_weapon() {
 
 void Dragon::update() {
     Enemy::update();
-    if ( frame == 20 ) init_weapon();
+    if ( frame == 20 ) {
+        play_sound_effect("music\\dragon_roar.wav");
+        init_weapon();
+    }
     check_weapon();
     for ( int i = 0; i < weapon.size(); ++i ) {
         weapon[i]->update();

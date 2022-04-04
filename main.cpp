@@ -23,6 +23,9 @@ int main(int argc, char* argv[]) {
         }
 
         game->setup_game();
+
+        play_music("music\\game_music.mp3");
+
         do {
 
             frameStart = SDL_GetTicks64();

@@ -69,7 +69,7 @@
 1648518900 c:\users\admin\documents\codeblock4\weapon.h
 	"TextureManager.h"
 
-1648878352 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\character.cpp
+1648969442 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\character.cpp
 	"Character.h"
 	"Game.h"
 
@@ -87,7 +87,7 @@
 1648305919 c:\users\admin\documents\sdl_game_the_advendture_of_robin\vector2d.h
 	<iostream>
 
-1648874092 c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.h
+1648969501 c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.h
 	<vector>
 	"GeneralFunction.h"
 	"Map.h"
@@ -96,8 +96,9 @@
 	"Dragon.h"
 	"EnemyManager.h"
 	"BonusManager.h"
+	"TextManager.h"
 
-1648572627 c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.h
+1648969685 c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.h
 	<SDL.h>
 	<SDL_mixer.h>
 	<SDL_image.h>
@@ -114,15 +115,15 @@
 1648796773 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\enemy.cpp
 	"Enemy.h"
 
-1648877116 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
+1648969501 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
 	<iostream>
 	"Game.h"
 	"Vector2D.h"
 
-1648652304 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.cpp
+1648969662 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.cpp
 	"GeneralFunction.h"
 
-1648653746 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\main.cpp
+1648969501 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\main.cpp
 	"Game.h"
 	<time.h>
 	<windows.h>
@@ -157,7 +158,7 @@
 1648798181 c:\users\admin\documents\sdl_game_the_advendture_of_robin\bat.h
 	"Enemy.h"
 
-1648804506 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\dragon.cpp
+1648969768 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\dragon.cpp
 	"Dragon.h"
 	"GeneralFunction.h"
 
@@ -166,12 +167,12 @@
 	"Enemy.h"
 	"Weapon.h"
 
-1648804506 c:\users\admin\documents\sdl_game_the_advendture_of_robin\goat.h
+1648975408 c:\users\admin\documents\sdl_game_the_advendture_of_robin\goat.h
 	<vector>
 	"Enemy.h"
 	"Weapon.h"
 
-1648802381 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\goat.cpp
+1648975228 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\goat.cpp
 	"Goat.h"
 	"GeneralFunction.h"
 
@@ -194,7 +195,15 @@
 	<vector>
 	"Bonus.h"
 
-1648876414 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\bonusmanager.cpp
+1648967097 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\bonusmanager.cpp
 	"BonusManager.h"
 	"GeneralFunction.h"
+
+1648891657 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\textmanager.cpp
+	"TextManager.h"
+	"Game.h"
+
+1648892506 c:\users\admin\documents\sdl_game_the_advendture_of_robin\textmanager.h
+	"GeneralFunction.h"
+	"Vector2D.h"
 
