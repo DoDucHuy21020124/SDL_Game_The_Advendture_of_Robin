@@ -41,7 +41,7 @@ void Game::game_init() {
             std::cout << "Create TTF Successful" << std::endl;
         }
 
-        fstream file("data\\high_score.txt");
+        std::fstream file("data\\high_score.txt");
         if ( file.is_open() ) file >> high_score;
         file.close();
 
@@ -56,7 +56,7 @@ int Game::make_menu() {
 
     std::string title = "The Adventure\n";
     title = title + "      of Robin";
-    TextManager game_title(title, SDL_Color{0, 0, 0}, "font\\FlappyBirdy.ttf", 100, Vector2D(400, 200));
+    TextManager game_title(title, SDL_Color{255, 255, 255}, "font\\FlappyBirdy.ttf", 100, Vector2D(400, 200));
     std::cout << "load title" << std::endl;
 
     std::vector<TextureManager*> buttons;
@@ -167,14 +167,178 @@ int Game::make_menu() {
 }
 
 void Game::make_high_score() {
+    TextureManager* menu_background = new TextureManager("image\\menu_background.png", Vector2D(0, 0), 1, 1);
+    TextureManager* high_score_background = new TextureManager("image\\high_scorebackground.png", Vector2D(400, 50), 1, 1);
 
+    TextManager* text = new TextManager("HIGH SCORE", SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(470, 100));
+    TextManager* highscore = new TextManager(std::to_string(high_score), SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(550, 200));
+
+    TextureManager* back_button = new TextureManager("image\\back_button1.png", Vector2D(1100, 536), 1, 1);
+    bool check = false;
+    bool quit = false;
+
+    do {
+        SDL_RenderClear(renderer);
+
+        while( SDL_PollEvent(&g_event) ) {
+            switch(g_event.type) {
+            case SDL_QUIT :
+                clean_game();
+                break;
+            case SDL_MOUSEMOTION :
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, back_button->get_destRect()) ) {
+                    if ( !check ) {
+                        check = true;
+                        back_button->set_file_path("image\\back_button.png", 1);
+                    }
+                }
+                else if ( check ) {
+                    check = false;
+                    back_button->set_file_path("image\\back_button1.png", 1);
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN :
+                if ( check_in_button(g_event.button.x, g_event.button.y, back_button->get_destRect()) ) {
+                    quit = true;
+                }
+                break;
+            }
+        }
+
+        menu_background->draw();
+        high_score_background->draw();
+        text->draw();
+        highscore->draw();
+        back_button->draw();
+
+        SDL_RenderPresent(renderer);
+
+    } while ( !quit );
 }
 
 void Game::make_info_game() {
+    TextureManager* menu_background = new TextureManager("image\\menu_background.png", Vector2D(0, 0), 1, 1);
+    TextureManager* info_background = new TextureManager("image\\info_background.png", Vector2D(200, 30), 1, 1);
+
+    TextManager* text1 = new TextManager("This game was made by", SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(350, 150));
+    TextManager* text2 = new TextManager("Do Duc Huy", SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(470, 250));
+    TextManager* text3 = new TextManager("Student ID: 21020124", SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(350, 350));
+
+    TextureManager* back_button = new TextureManager("image\\back_button1.png", Vector2D(1100, 536), 1, 1);
+    bool check = false;
+    bool quit = false;
+
+    do {
+        SDL_RenderClear(renderer);
+
+        while( SDL_PollEvent(&g_event) ) {
+            switch(g_event.type) {
+            case SDL_QUIT :
+                clean_game();
+                break;
+            case SDL_MOUSEMOTION :
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, back_button->get_destRect()) ) {
+                    if ( !check ) {
+                        check = true;
+                        back_button->set_file_path("image\\back_button.png", 1);
+                    }
+                }
+                else if ( check ) {
+                    check = false;
+                    back_button->set_file_path("image\\back_button1.png", 1);
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN :
+                if ( check_in_button(g_event.button.x, g_event.button.y, back_button->get_destRect()) ) {
+                    quit = true;
+                }
+                break;
+            }
+        }
+
+        menu_background->draw();
+        info_background->draw();
+        text1->draw();
+        text2->draw();
+        text3->draw();
+
+        back_button->draw();
+
+        SDL_RenderPresent(renderer);
+
+    } while ( !quit );
 
 }
 
 int Game::make_play_again() {
+    TextureManager* gameover_background = new TextureManager("image\\gameover_background.png", Vector2D(0, 0), 1, 1);
+
+    TextManager* text1 = new TextManager("GAME OVER!", SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(400, 250));
+    TextManager* text2 = new TextManager("Do you want to play again?", SDL_Color{255, 255, 255}, "font\\chary.ttf", 50, Vector2D(350, 350));
+
+    std::vector<TextureManager*> buttons;
+
+    TextureManager* yes_button = new TextureManager("image\\yes_button.png", Vector2D(420, 420), 1, 1);
+    buttons.push_back(yes_button);
+    TextureManager* no_button = new TextureManager("image\\no_button.png", Vector2D(720, 420), 1, 1);
+    buttons.push_back(no_button);
+
+    std::vector<bool> check;
+    for ( int i = 0; i < buttons.size(); ++i ) check.push_back(false);
+
+    do {
+        SDL_RenderClear(renderer);
+
+        while( SDL_PollEvent(&g_event) ) {
+            switch(g_event.type) {
+            case SDL_QUIT :
+                return 1;
+                break;
+            case SDL_MOUSEMOTION :
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[0]->get_destRect()) ) {
+                    if ( !check[0] ) {
+                        check[0] = true;
+                        buttons[0]->set_file_path("image\\yes_button1.png", 1);
+                    }
+                }
+                else if ( check[0] ) {
+                    check[0] = false;
+                    buttons[0]->set_file_path("image\\yes_button.png", 1);
+                }
+
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[1]->get_destRect()) ) {
+                    if ( !check[1] ) {
+                        check[1] = true;
+                        buttons[1]->set_file_path("image\\no_button1.png", 1);
+                    }
+                }
+                else if ( check[1] ) {
+                    check[1] = false;
+                    buttons[1]->set_file_path("image\\no_button.png", 1);
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN :
+                for ( int i = 0; i < buttons.size(); ++i ) {
+                    if ( check_in_button(g_event.button.x, g_event.button.y, buttons[i]->get_destRect()) ) {
+                        return i;
+                    }
+                }
+                break;
+            }
+        }
+
+        gameover_background->draw();
+
+        text1->draw();
+        text2->draw();
+
+        yes_button->draw();
+        no_button->draw();
+
+        SDL_RenderPresent(renderer);
+
+    } while ( true );
+    return 1;
 
 }
 
@@ -183,6 +347,8 @@ void Game::handle_event() {
     if ( g_event.type == SDL_QUIT ) {
         game_over = true;
         is_running = false;
+        clean_game();
+        exit(0);
     }
 }
 
@@ -378,7 +544,6 @@ void Game::render_game() {
 
         if ( play_time <= 0 ) {
             game_over = true;
-            is_running = false;
         }
 
         else {

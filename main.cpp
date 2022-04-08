@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
 
     Uint64 frameStart;
     int frameTime;
+    int click;
 
     do {
 
@@ -20,15 +21,13 @@ int main(int argc, char* argv[]) {
             game = new Game();
             game->game_init();
             is_played = true;
+            if ( !Mix_PlayingMusic() ) play_music("music\\menu_music.mp3");
+            click = game->make_menu();
         }
 
-        play_music("music\\menu_music.mp3");
-
-        //std::cout << game->make_menu() << std::endl;
-        int click = game->make_menu();
         if ( click == 3 ) break;
-        else if ( click == 1 ) break;
-        else if ( click == 2 ) break;
+        else if ( click == 1 ) game->make_high_score();
+        else if ( click == 2 ) game->make_info_game();
         else if ( click == 0 ) {
 
             std::cout << "ready" << std::endl;
@@ -57,7 +56,15 @@ int main(int argc, char* argv[]) {
 
             } while ( !game->get_game_over() );
         }
-    } while( game->get_is_running());
+        play_music("music\\menu_music.mp3");
+        if ( game->make_play_again() == 0 ) {
+            game->set_game_over(false);
+            click = 0;
+        }
+        else {
+            game->set_is_running(false);
+        }
+    } while( game->get_is_running() );
 
     game->clean_game();
     Sleep(3000);
