@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Game.h"
 #include "Vector2D.h"
 
@@ -40,53 +41,109 @@ void Game::game_init() {
             std::cout << "Create TTF Successful" << std::endl;
         }
 
+        fstream file("data\\high_score.txt");
+        if ( file.is_open() ) file >> high_score;
+        file.close();
+
         is_running = true;
         game_over = false;
     }
 }
 
 int Game::make_menu() {
-    SDL_Texture* texture = LoadTexture(renderer, "menu_background.png");
-    std::vector<TextObject> buttons;
+    TextureManager* menu_background = new TextureManager("image\\menu_background.png", Vector2D(0, 0), 1, 1);
+    std::cout << "Load menu_background" << std::endl;
+
+    std::string title = "The Adventure\n";
+    title = title + "      of Robin";
+    TextManager game_title(title, SDL_Color{0, 0, 0}, "font\\FlappyBirdy.ttf", 100, Vector2D(400, 200));
+    std::cout << "load title" << std::endl;
+
+    std::vector<TextureManager*> buttons;
     std::vector<bool> isSelected;
 
-    TextObject start_button("Start", SDL_Color{0, 0, 0}, "arial.ttf", 50, 0, 0);
-    start_button.set_xypos((SCREEN_WIDTH - start_button.get_destRect().w)/2, (SCREEN_HEIGHT - start_button.get_destRect().h)/2 - 30);
-    buttons.push_back(start_button);
-    TextObject exit_button("Exit", SDL_Color{0, 0, 0}, "arial.ttf", 50, 0, 0);
-    exit_button.set_xypos((SCREEN_WIDTH - exit_button.get_destRect().w)/2, (SCREEN_HEIGHT - exit_button.get_destRect().h)/2 + 30);
-    buttons.push_back(exit_button);
+    TextureManager* play_button = new TextureManager("image\\play_button1.png", Vector2D(400, 400), 1, 1);
+    buttons.push_back(play_button);
+    std::cout << "start_button" << std::endl;
+
+    TextureManager* high_score = new TextureManager("image\\high_score1.png", Vector2D(480, 400), 1, 1);
+    std::cout << "Install" << std::endl;
+    buttons.push_back(high_score);
+    std::cout << "start_button" << std::endl;
+
+    TextureManager* info_button = new TextureManager("image\\info_button1.png", Vector2D(560, 400), 1, 1);
+    buttons.push_back(info_button);
+    std::cout << "start_button" << std::endl;
+
+    TextureManager* quit_button = new TextureManager("image\\quit_button1.png", Vector2D(640, 400), 1, 1);
+    buttons.push_back(quit_button);
+    std::cout << "start_button" << std::endl;
 
     for ( int i = 0; i < buttons.size(); ++i ) isSelected.push_back(false);
 
+    std::cout << "Success install" << std::endl;
+
     do {
         SDL_RenderClear(renderer);
+        std::cout << "Clear Render" << std::endl;
 
         while ( SDL_PollEvent(&g_event) ) {
+            std::cout << "Wait event" << std::endl;
             switch (g_event.type) {
             case SDL_QUIT :
-                return 1;
+                return 3;
                 break;
             case SDL_MOUSEMOTION:
-                for ( int i = 0; i < buttons.size(); ++i ) {
-                    if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[i].get_destRect()) ) {
-                        if ( !isSelected[i] ) {
-                            isSelected[i] = true;
-                            buttons[i].set_color(255, 0, 0);
-                        }
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[0]->get_destRect()) ) {
+                    if ( !isSelected[0] ) {
+                        isSelected[0] = true;
+                        buttons[0]->set_file_path("image\\play_button.png", 1);
                     }
+                }
+                else if ( isSelected[0] ) {
+                    isSelected[0] = false;
+                    buttons[0]->set_file_path("image\\play_button1.png", 1);
+                }
 
-                    else {
-                        if ( isSelected[i] ) {
-                            isSelected[i] = false;
-                            buttons[i].set_color(0, 0, 0);
-                        }
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[1]->get_destRect()) ) {
+                    if ( !isSelected[1] ) {
+                        isSelected[1] = true;
+                        buttons[1]->set_file_path("image\\high_score.png", 1);
                     }
+                }
+                else if ( isSelected[1] ) {
+                    isSelected[1] = false;
+                    buttons[1]->set_file_path("image\\high_score1.png", 1);
+                }
+
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[2]->get_destRect()) ) {
+                    if ( !isSelected[2] ) {
+                        isSelected[2] = true;
+                        buttons[2]->set_file_path("image\\info_button.png", 1);
+                    }
+                }
+                else if ( isSelected[2] ) {
+                    isSelected[2] = false;
+                    buttons[2]->set_file_path("image\\info_button1.png", 1);
+                }
+
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[3]->get_destRect()) ) {
+                    if ( !isSelected[3] ) {
+                        isSelected[3] = true;
+                        buttons[3]->set_file_path("image\\quit_button.png", 1);
+                    }
+                }
+                else if ( isSelected[3] ) {
+                    isSelected[3] = false;
+                    buttons[3]->set_file_path("image\\quit_button1.png", 1);
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN :
                 for ( int i = 0; i < buttons.size(); ++i ) {
-                    if ( check_in_button(g_event.button.x, g_event.button.y, buttons[i].get_destRect()) ) {
+                    if ( check_in_button(g_event.button.x, g_event.button.y, buttons[i]->get_destRect()) ) {
+                        std::cout << "click" << std::endl;
+                        buttons.clear();
+                        std::cout << "button clear" << std::endl;
                         return i;
                     }
                 }
@@ -96,17 +153,25 @@ int Game::make_menu() {
             }
         }
 
-        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        menu_background->draw();
+        game_title.draw();
 
         for ( int i = 0; i < buttons.size(); ++i ) {
-            buttons[i].update();
-            buttons[i].draw();
+            buttons[i]->update();
+            buttons[i]->draw();
         }
 
         SDL_RenderPresent(renderer);
     } while ( true );
+    return 3;
+}
 
-    return 1;
+void Game::make_high_score() {
+
+}
+
+void Game::make_info_game() {
+
 }
 
 int Game::make_play_again() {
@@ -122,6 +187,18 @@ void Game::handle_event() {
 }
 
 void Game::setup_game() {
+    map_game1 = NULL;
+    map_game2 = NULL;
+
+    character = NULL;
+    goat = NULL;
+    dragon = NULL;
+    enemy_list = NULL;
+    bonus_list = NULL;
+    show_hp = NULL;
+    show_score = NULL;
+    heart = NULL;
+
     map_game1 = new Map("image\\backgroundgame.png", Vector2D(0, 0), 1, 1);
     map_game2 = new Map("image\\backgroundgame.png", Vector2D(SCREEN_WIDTH, 0), 1, 1);
 

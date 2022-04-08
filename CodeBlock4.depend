@@ -87,8 +87,9 @@
 1648305919 c:\users\admin\documents\sdl_game_the_advendture_of_robin\vector2d.h
 	<iostream>
 
-1648969501 c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.h
+1649072283 c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.h
 	<vector>
+	"TextureManager.h"
 	"GeneralFunction.h"
 	"Map.h"
 	"Character.h"
@@ -98,7 +99,7 @@
 	"BonusManager.h"
 	"TextManager.h"
 
-1648969685 c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.h
+1648981317 c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.h
 	<SDL.h>
 	<SDL_mixer.h>
 	<SDL_image.h>
@@ -115,15 +116,15 @@
 1648796773 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\enemy.cpp
 	"Enemy.h"
 
-1648969501 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
+1649411210 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\game.cpp
 	<iostream>
 	"Game.h"
 	"Vector2D.h"
 
-1648969662 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.cpp
+1648981313 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\generalfunction.cpp
 	"GeneralFunction.h"
 
-1648969501 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\main.cpp
+1649408459 source:c:\users\admin\documents\sdl_game_the_advendture_of_robin\main.cpp
 	"Game.h"
 	<time.h>
 	<windows.h>

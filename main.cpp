@@ -22,29 +22,41 @@ int main(int argc, char* argv[]) {
             is_played = true;
         }
 
-        game->setup_game();
+        play_music("music\\menu_music.mp3");
 
-        play_music("music\\game_music.mp3");
+        //std::cout << game->make_menu() << std::endl;
+        int click = game->make_menu();
+        if ( click == 3 ) break;
+        else if ( click == 1 ) break;
+        else if ( click == 2 ) break;
+        else if ( click == 0 ) {
 
-        do {
+            std::cout << "ready" << std::endl;
+            game->setup_game();
+            std::cout << "setup game" << std::endl;
 
-            frameStart = SDL_GetTicks64();
+            play_music("music\\game_music.mp3");
 
-            SDL_RenderClear(Game::renderer);
+            do {
 
-            game->update_game();
-            game->render_game();
-            game->handle_event();
+                frameStart = SDL_GetTicks64();
 
-            SDL_RenderPresent(Game::renderer);
+                SDL_RenderClear(Game::renderer);
 
-            frameTime = SDL_GetTicks64() - frameStart;
+                game->update_game();
+                game->render_game();
+                game->handle_event();
 
-            if ( frameDelay > frameTime ) {
-                SDL_Delay(frameDelay - frameTime);
-            }
+                SDL_RenderPresent(Game::renderer);
 
-        } while ( !game->get_game_over() );
+                frameTime = SDL_GetTicks64() - frameStart;
+
+                if ( frameDelay > frameTime ) {
+                    SDL_Delay(frameDelay - frameTime);
+                }
+
+            } while ( !game->get_game_over() );
+        }
     } while( game->get_is_running());
 
     game->clean_game();

@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <vector>
+#include "TextureManager.h"
 #include "GeneralFunction.h"
 #include "Map.h"
 #include "Character.h"
@@ -18,6 +19,7 @@ private :
     bool game_over;
     Uint64 time_start;
     int play_time;
+    int high_score;
 
 public :
     static SDL_Renderer* renderer;
@@ -45,6 +47,8 @@ public :
 
     void game_init();
     int make_menu();
+    void make_high_score();
+    void make_info_game();
     int make_play_again();
     void enemy_list_manager();
     void setup_game();
