@@ -174,7 +174,9 @@ void Game::make_high_score() {
     TextManager* highscore = new TextManager(std::to_string(high_score), SDL_Color{0, 0, 0}, "font\\chary.ttf", 50, Vector2D(550, 200));
 
     TextureManager* back_button = new TextureManager("image\\back_button1.png", Vector2D(1100, 536), 1, 1);
-    bool check = false;
+    TextureManager* reset_button = new TextureManager("image\\reset_button1.png", Vector2D(520, 350), 1, 1);
+    bool check1 = false;
+    bool check2 = false;
     bool quit = false;
 
     do {
@@ -187,28 +189,50 @@ void Game::make_high_score() {
                 break;
             case SDL_MOUSEMOTION :
                 if ( check_in_button(g_event.motion.x, g_event.motion.y, back_button->get_destRect()) ) {
-                    if ( !check ) {
-                        check = true;
+                    if ( !check1 ) {
+                        check1 = true;
                         back_button->set_file_path("image\\back_button.png", 1);
                     }
                 }
-                else if ( check ) {
-                    check = false;
+                else if ( check1 ) {
+                    check1 = false;
                     back_button->set_file_path("image\\back_button1.png", 1);
+                }
+
+                if ( check_in_button(g_event.motion.x, g_event.motion.y, reset_button->get_destRect()) ) {
+                    if ( !check2 ) {
+                        check2 = true;
+                        reset_button->set_file_path("image\\reset_button.png", 1);
+                    }
+                }
+                else if ( check2 ) {
+                    check2 = false;
+                    reset_button->set_file_path("image\\reset_button1.png", 1);
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN :
                 if ( check_in_button(g_event.button.x, g_event.button.y, back_button->get_destRect()) ) {
                     quit = true;
                 }
+
+                if ( check_in_button(g_event.button.x, g_event.button.y, reset_button->get_destRect()) ) {
+                    high_score = 0;
+                    std::fstream file("data\\high_score.txt", std::ios::out | std::ios::trunc);
+                    file << high_score;
+                    file.close();
+                    highscore->set_text(std::to_string(high_score));
+                }
                 break;
             }
         }
+
+        highscore->update();
 
         menu_background->draw();
         high_score_background->draw();
         text->draw();
         highscore->draw();
+        reset_button->draw();
         back_button->draw();
 
         SDL_RenderPresent(renderer);
@@ -273,6 +297,20 @@ void Game::make_info_game() {
 int Game::make_play_again() {
     TextureManager* gameover_background = new TextureManager("image\\gameover_background.png", Vector2D(0, 0), 1, 1);
 
+    TextManager* score_text = NULL;
+
+    if ( score > high_score ) {
+        score_text = new TextManager("HIGH SCORE: " + std::to_string(score), SDL_Color{255, 255, 255}, "font\\chary.ttf", 50, Vector2D(450, 20));
+        high_score = score;
+        std::fstream file("data\\high_score.txt");
+        file << high_score;
+        file.close();
+    }
+
+    else {
+        score_text = new TextManager("SCORE: " + std::to_string(score), SDL_Color{255, 255, 255}, "font\\chary.ttf", 50, Vector2D(500, 20));
+    }
+
     TextManager* text1 = new TextManager("GAME OVER!", SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(400, 250));
     TextManager* text2 = new TextManager("Do you want to play again?", SDL_Color{255, 255, 255}, "font\\chary.ttf", 50, Vector2D(350, 350));
 
@@ -292,7 +330,8 @@ int Game::make_play_again() {
         while( SDL_PollEvent(&g_event) ) {
             switch(g_event.type) {
             case SDL_QUIT :
-                return 1;
+                clean_game();
+                exit(0);
                 break;
             case SDL_MOUSEMOTION :
                 if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[0]->get_destRect()) ) {
@@ -328,6 +367,8 @@ int Game::make_play_again() {
         }
 
         gameover_background->draw();
+
+        score_text->draw();
 
         text1->draw();
         text2->draw();

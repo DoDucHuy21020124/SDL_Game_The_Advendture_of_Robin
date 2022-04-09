@@ -4,6 +4,7 @@
 
 Game* game = NULL;
 bool is_played = false;
+bool play_again = false;
 
 int main(int argc, char* argv[]) {
     srand(time(0));
@@ -21,6 +22,10 @@ int main(int argc, char* argv[]) {
             game = new Game();
             game->game_init();
             is_played = true;
+
+        }
+
+        if ( !play_again ) {
             if ( !Mix_PlayingMusic() ) play_music("music\\menu_music.mp3");
             click = game->make_menu();
         }
@@ -30,6 +35,7 @@ int main(int argc, char* argv[]) {
         else if ( click == 2 ) game->make_info_game();
         else if ( click == 0 ) {
 
+            game->set_game_over(false);
             std::cout << "ready" << std::endl;
             game->setup_game();
             std::cout << "setup game" << std::endl;
@@ -55,14 +61,15 @@ int main(int argc, char* argv[]) {
                 }
 
             } while ( !game->get_game_over() );
-        }
-        play_music("music\\menu_music.mp3");
-        if ( game->make_play_again() == 0 ) {
-            game->set_game_over(false);
-            click = 0;
-        }
-        else {
-            game->set_is_running(false);
+
+            play_music("music\\menu_music.mp3");
+            if ( game->make_play_again() == 0 ) {
+                click = 0;
+                play_again = true;
+            }
+            else {
+                play_again = false;
+            }
         }
     } while( game->get_is_running() );
 
