@@ -2,7 +2,7 @@
 #include "GeneralFunction.h"
 
 BonusManager::BonusManager() {
-    time_wait = 5000;
+    time_wait = 10000;
     time_start = SDL_GetTicks64();
 }
 

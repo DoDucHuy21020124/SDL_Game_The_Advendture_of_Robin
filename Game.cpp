@@ -9,6 +9,8 @@ Map* Game::map_game2;
 SDL_Event Game::g_event;
 
 int Game::score;
+int Game::check_point;
+
 
 Character* Game::character;
 Goat* Game::goat;
@@ -54,10 +56,13 @@ int Game::make_menu() {
     TextureManager* menu_background = new TextureManager("image\\menu_background.png", Vector2D(0, 0), 1, 1);
     std::cout << "Load menu_background" << std::endl;
 
-    std::string title = "The Adventure\n";
-    title = title + "      of Robin";
-    TextManager game_title(title, SDL_Color{255, 255, 255}, "font\\FlappyBirdy.ttf", 100, Vector2D(400, 200));
+    std::string title1 = "The Adventure";
+    TextManager game_title1(title1, SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(300, 100));
+    std::string title2 = "of Robin";
+    TextManager game_title2(title2, SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(600, 200));
     std::cout << "load title" << std::endl;
+
+    TextureManager* deco = new TextureManager("image\\bat.png", Vector2D(550, 300), 4, 80);
 
     std::vector<TextureManager*> buttons;
     std::vector<bool> isSelected;
@@ -66,7 +71,7 @@ int Game::make_menu() {
     buttons.push_back(play_button);
     std::cout << "start_button" << std::endl;
 
-    TextureManager* high_score = new TextureManager("image\\high_score1.png", Vector2D(480, 400), 1, 1);
+    TextureManager* high_score = new TextureManager("image\\high_score_button1.png", Vector2D(480, 400), 1, 1);
     std::cout << "Install" << std::endl;
     buttons.push_back(high_score);
     std::cout << "start_button" << std::endl;
@@ -84,6 +89,8 @@ int Game::make_menu() {
     std::cout << "Success install" << std::endl;
 
     do {
+
+
         SDL_RenderClear(renderer);
         std::cout << "Clear Render" << std::endl;
 
@@ -108,12 +115,12 @@ int Game::make_menu() {
                 if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[1]->get_destRect()) ) {
                     if ( !isSelected[1] ) {
                         isSelected[1] = true;
-                        buttons[1]->set_file_path("image\\high_score.png", 1);
+                        buttons[1]->set_file_path("image\\high_score_button.png", 1);
                     }
                 }
                 else if ( isSelected[1] ) {
                     isSelected[1] = false;
-                    buttons[1]->set_file_path("image\\high_score1.png", 1);
+                    buttons[1]->set_file_path("image\\high_score_button1.png", 1);
                 }
 
                 if ( check_in_button(g_event.motion.x, g_event.motion.y, buttons[2]->get_destRect()) ) {
@@ -153,8 +160,13 @@ int Game::make_menu() {
             }
         }
 
+        deco->update();
+
         menu_background->draw();
-        game_title.draw();
+        game_title1.draw();
+        game_title2.draw();
+
+        deco->draw();
 
         for ( int i = 0; i < buttons.size(); ++i ) {
             buttons[i]->update();
@@ -419,6 +431,7 @@ void Game::setup_game() {
     time_start = SDL_GetTicks64();
     play_time = 3;
     score = 0;
+    check_point = 0;
 
     show_hp = new TextManager("x" + std::to_string(play_time), SDL_Color{255, 255, 255}, "font\\FVF Fernando 08.ttf", 15, Vector2D(50, 2) );
     show_score = new TextManager("Score: " + std::to_string(score), SDL_Color{255, 255, 255}, "font\\FVF Fernando 08.ttf", 15, Vector2D(SCREEN_WIDTH/2 - 50, 2));
@@ -556,6 +569,20 @@ void Game::update_game() {
 
     bonus_list->init_bonus();
     bonus_list->update();
+
+    if ( score - check_point > 50 ) {
+        enemy_list->set_time_appear_bat(enemy_list->get_time_appear_bat() - 500);
+        if ( enemy_list->get_time_appear_bat() < 3000 ) enemy_list->set_time_appear_bat(3000);
+
+        enemy_list->set_time_appear_wolf(enemy_list->get_time_appear_wolf() - 500);
+        if ( enemy_list->get_time_appear_wolf() < 7000 ) enemy_list->set_time_appear_bat(7000);
+
+        bonus_list->set_time_wait(bonus_list->get_time_wait() + 1000);
+        if ( bonus_list->get_time_wait() > 20000 ) bonus_list->set_time_wait(20000);
+
+        check_point += 50;
+    }
+
 }
 
 void Game::render_game() {

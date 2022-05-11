@@ -25,6 +25,7 @@ public :
     static SDL_Renderer* renderer;
     static SDL_Texture* background;
     static int score;
+    static int check_point;
     static Map* map_game1;
     static Map* map_game2;
     static SDL_Event g_event;
