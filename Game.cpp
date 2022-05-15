@@ -403,6 +403,14 @@ void Game::handle_event() {
         clean_game();
         exit(0);
     }
+    else if ( g_event.type == SDL_KEYDOWN ) {
+        if ( g_event.key.keysym.sym == SDLK_ESCAPE ) {
+            pause_game = true;
+        }
+        else if ( g_event.key.keysym.sym == SDLK_SPACE ) {
+            if ( pause_game ) pause_game = false;
+        }
+    }
 }
 
 void Game::setup_game() {
@@ -436,6 +444,8 @@ void Game::setup_game() {
     show_hp = new TextManager("x" + std::to_string(play_time), SDL_Color{255, 255, 255}, "font\\FVF Fernando 08.ttf", 15, Vector2D(50, 2) );
     show_score = new TextManager("Score: " + std::to_string(score), SDL_Color{255, 255, 255}, "font\\FVF Fernando 08.ttf", 15, Vector2D(SCREEN_WIDTH/2 - 50, 2));
     heart = new TextureManager("image\\heart.png", Vector2D(20, 4), 1, 1);
+
+    pause_game = false;
 }
 
 void Game::character_collision() {
@@ -544,45 +554,49 @@ void Game::reset_game() {
 }
 
 void Game::update_game() {
-    map_game1->update();
-    map_game2->update();
+    if ( !pause_game ) {
+        map_game1->update();
+        map_game2->update();
 
-    show_hp->set_text("x" + std::to_string(play_time));
-    show_hp->update();
+        show_hp->set_text("x" + std::to_string(play_time));
+        show_hp->update();
 
-    show_score->set_text("Score: " + std::to_string(score));
-    show_score->update();
+        show_score->set_text("Score: " + std::to_string(score));
+        show_score->update();
 
-    character_collision();
-    destroy_enemy();
-    take_bonus();
+        character_collision();
+        destroy_enemy();
+        take_bonus();
 
-    character->update();
-    goat->attack(character->get_xpos());
-    goat->update();
-    dragon->update();
+        character->update();
+        goat->attack(character->get_xpos());
+        goat->update();
+        dragon->update();
 
-    enemy_list->init_enemy_bat(character->get_xpos(), character->get_ypos());
-    enemy_list->init_enemy_wolf();
-    enemy_list->update();
-    heart->update();
+        enemy_list->init_enemy_bat(character->get_xpos(), character->get_ypos());
+        enemy_list->init_enemy_wolf();
+        enemy_list->update();
+        heart->update();
 
-    bonus_list->init_bonus();
-    bonus_list->update();
+        bonus_list->init_bonus();
+        bonus_list->update();
 
-    if ( score - check_point > 50 ) {
-        enemy_list->set_time_appear_bat(enemy_list->get_time_appear_bat() - 500);
-        if ( enemy_list->get_time_appear_bat() < 3000 ) enemy_list->set_time_appear_bat(3000);
+        if ( score - check_point > 50 ) {
+            enemy_list->set_time_appear_bat(enemy_list->get_time_appear_bat() - 500);
+            if ( enemy_list->get_time_appear_bat() < 3000 ) enemy_list->set_time_appear_bat(3000);
 
-        enemy_list->set_time_appear_wolf(enemy_list->get_time_appear_wolf() - 500);
-        if ( enemy_list->get_time_appear_wolf() < 7000 ) enemy_list->set_time_appear_bat(7000);
+            enemy_list->set_time_appear_wolf(enemy_list->get_time_appear_wolf() - 500);
+            if ( enemy_list->get_time_appear_wolf() < 7000 ) enemy_list->set_time_appear_bat(7000);
 
-        bonus_list->set_time_wait(bonus_list->get_time_wait() + 1000);
-        if ( bonus_list->get_time_wait() > 20000 ) bonus_list->set_time_wait(20000);
+            bonus_list->set_time_wait(bonus_list->get_time_wait() + 1000);
+            if ( bonus_list->get_time_wait() > 20000 ) bonus_list->set_time_wait(20000);
 
-        check_point += 50;
+            check_point += 50;
+        }
     }
-
+    else {
+        pause_text->update();
+    }
 }
 
 void Game::render_game() {
@@ -632,6 +646,9 @@ void Game::render_game() {
         bonus_list->draw();
         enemy_list->draw();
         character->draw();
+    }
+    if ( pause_game ) {
+        pause_text->draw();
     }
 }
 

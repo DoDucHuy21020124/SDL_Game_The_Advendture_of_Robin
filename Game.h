@@ -20,6 +20,8 @@ private :
     Uint64 time_start;
     int play_time;
     int high_score;
+    bool pause_game;
+    TextManager* pause_text = new TextManager("Press space to continue game!", SDL_Color{255, 255, 255}, "font\\chary.ttf", 50, Vector2D(SCREEN_WIDTH/2 - 300, SCREEN_HEIGHT/2));
 
 public :
     static SDL_Renderer* renderer;
