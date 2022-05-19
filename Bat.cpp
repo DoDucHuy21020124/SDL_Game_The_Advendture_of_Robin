@@ -8,7 +8,10 @@ Bat::Bat(const char* filePath, Vector2D position, int numFrame, int speed, Vecto
 }
 
 Bat::~Bat() {
-
+    if ( collision_effect != NULL ) {
+        collision_effect = NULL;
+    }
+    delete collision_effect;
 }
 
 void Bat::play_collision_effect() {

@@ -8,7 +8,10 @@ Wolf::Wolf(const char* filePath, Vector2D position, int numFrame, int speed, Vec
 }
 
 Wolf::~Wolf() {
-
+    if ( collision_effect != NULL ) {
+        collision_effect = NULL;
+    }
+    delete collision_effect;
 }
 
 void Wolf::play_collision_effect() {

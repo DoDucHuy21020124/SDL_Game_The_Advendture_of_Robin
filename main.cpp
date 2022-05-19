@@ -36,9 +36,7 @@ int main(int argc, char* argv[]) {
         else if ( click == 0 ) {
 
             game->set_game_over(false);
-            std::cout << "ready" << std::endl;
             game->setup_game();
-            std::cout << "setup game" << std::endl;
 
             play_music("music\\game_music.mp3");
 

@@ -54,13 +54,10 @@ void Game::game_init() {
 
 int Game::make_menu() {
     TextureManager* menu_background = new TextureManager("image\\menu_background.png", Vector2D(0, 0), 1, 1);
-    std::cout << "Load menu_background" << std::endl;
-
     std::string title1 = "The Adventure";
     TextManager game_title1(title1, SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(300, 100));
     std::string title2 = "of Robin";
     TextManager game_title2(title2, SDL_Color{255, 255, 255}, "font\\chary.ttf", 100, Vector2D(600, 200));
-    std::cout << "load title" << std::endl;
 
     TextureManager* deco = new TextureManager("image\\bat.png", Vector2D(550, 300), 4, 80);
 
@@ -69,33 +66,23 @@ int Game::make_menu() {
 
     TextureManager* play_button = new TextureManager("image\\play_button1.png", Vector2D(400, 400), 1, 1);
     buttons.push_back(play_button);
-    std::cout << "start_button" << std::endl;
 
     TextureManager* high_score = new TextureManager("image\\high_score_button1.png", Vector2D(480, 400), 1, 1);
-    std::cout << "Install" << std::endl;
     buttons.push_back(high_score);
-    std::cout << "start_button" << std::endl;
 
     TextureManager* info_button = new TextureManager("image\\info_button1.png", Vector2D(560, 400), 1, 1);
     buttons.push_back(info_button);
-    std::cout << "start_button" << std::endl;
 
     TextureManager* quit_button = new TextureManager("image\\quit_button1.png", Vector2D(640, 400), 1, 1);
     buttons.push_back(quit_button);
-    std::cout << "start_button" << std::endl;
 
     for ( int i = 0; i < buttons.size(); ++i ) isSelected.push_back(false);
-
-    std::cout << "Success install" << std::endl;
 
     do {
 
 
         SDL_RenderClear(renderer);
-        std::cout << "Clear Render" << std::endl;
-
         while ( SDL_PollEvent(&g_event) ) {
-            std::cout << "Wait event" << std::endl;
             switch (g_event.type) {
             case SDL_QUIT :
                 return 3;
@@ -148,9 +135,7 @@ int Game::make_menu() {
             case SDL_MOUSEBUTTONDOWN :
                 for ( int i = 0; i < buttons.size(); ++i ) {
                     if ( check_in_button(g_event.button.x, g_event.button.y, buttons[i]->get_destRect()) ) {
-                        std::cout << "click" << std::endl;
                         buttons.clear();
-                        std::cout << "button clear" << std::endl;
                         return i;
                     }
                 }
@@ -500,7 +485,6 @@ void Game::destroy_enemy() {
                     int y = enemy_list->get_enemy_list()[j]->get_ypos();
                     enemy_list->get_enemy_list()[j]->get_collision_effect()->set_xypos(Vector2D(float(x), float(y)));
                     score += enemy_list->get_enemy_list()[j]->get_score();
-                    std::cout << score << std::endl;
                 }
             }
         }
@@ -517,7 +501,6 @@ void Game::take_bonus() {
                 break;
             case 1:
                 score += 5;
-                std::cout << score << std::endl;
                 break;
             case 2:
                 character->set_weapon_type(1);
@@ -658,8 +641,6 @@ void Game::clean_game() {
     TTF_Quit();
     SDL_DestroyWindow(window);
     SDL_Quit();
-
-    std::cout << "Clean the game!" << std::endl;
 }
 
 

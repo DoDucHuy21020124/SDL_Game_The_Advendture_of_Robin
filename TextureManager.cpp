@@ -25,7 +25,6 @@ TextureManager::~TextureManager() {
         delete texture;
         texture = NULL;
     }
-    std::cout << "Delete Texture Manager" << std::endl;
 }
 
 void TextureManager::set_file_path(const char* filePath, int numFrame) {

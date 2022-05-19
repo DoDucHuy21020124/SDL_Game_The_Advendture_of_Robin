@@ -26,7 +26,6 @@ void play_music(const char* file_path) {
 }
 
 void play_sound_effect(const char* file_path) {
-    //if ( Mix_Playing(-1) ) Mix_HaltChannel(-1);
     sound_effect = Mix_LoadWAV(file_path);
     Mix_PlayChannel(-1, sound_effect, 0);
 }
