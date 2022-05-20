@@ -18,7 +18,7 @@
   + Hiển thị số mạng còn lại và điểm của người chơi.
   + Cho phép chơi lại trò chơi.
  
-  *Link mô tả trò chơi trên Youtube:*
+  *Link mô tả trò chơi trên Youtube: https://youtu.be/jc36fi_HpXY*
 
 **3. Các kĩ thuật lập trình đã sử dụng**
 - Sử dụng thư viện đồ họa SDL2.
