@@ -396,6 +396,9 @@ void Game::handle_event() {
             if ( pause_game ) pause_game = false;
         }
     }
+    else if ( g_event.type == SDL_WINDOWEVENT_MINIMIZED ) {
+        SDL_MinimizeWindow(window);
+    }
 }
 
 void Game::setup_game() {
