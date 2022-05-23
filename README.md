@@ -27,7 +27,9 @@
 - Sử dụng kĩ thuật lập trình hướng cấu trúc và hướng đối tượng để tổ chức và quản lí trò chơi.
 
 **4. Cách cài đặt trò chơi**
-- Người dùng cài đặt codeblock trên máy tính của mình rồi tải toàn bộ trò chơi này về máy tính rồi cho chạy bằng codeblock là có thể chơi được.
+- Người dùng cài đặt codeblock trên máy tính.
+- Tải file trò chơi tại đây rồi giải nén: https://github.com/DoDucHuy21020124/SDL_Game_The_Advendture_of_Robin/raw/main/SDL_Game_The_Advendture_of_Robin.rar
+- Sử dụng codeblock để chạy file .cbg để bắt đầu trò chơi.
 
 **5. Kết luận**
 - Đây là một trò chơi đơn giản nhưng đã vận dụng được rất nhiều kiến thức về lập trình để có thể hoàn thành. Trò chơi được tổ chức gọn gàng nên người dùng khác có thể đọc và phát triển thêm.
