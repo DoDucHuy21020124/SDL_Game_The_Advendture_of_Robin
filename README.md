@@ -28,7 +28,7 @@
 
 **4. Cách cài đặt trò chơi**
 - Tải file trò chơi tại đây rồi giải nén: https://github.com/DoDucHuy21020124/SDL_Game_The_Adventure_of_Robin/raw/main/The_Adventure_of_Robin.rar
-- Sử dụng codeblock để chạy file main.exe để bắt đầu trò chơi. Mỗi khi thay đổi source code hay ra bản cập nhật mới thì game sẽ được build lại và file main.exe là file chạy game sẽ thay đổi, do đó cần tải lại game để lấy file main.exe mới cho bản cập nhật mới nhất.
+- Cho chạy file main.exe để bắt đầu trò chơi. Mỗi khi thay đổi source code hay ra bản cập nhật mới thì game sẽ được build lại và file main.exe là file chạy game sẽ thay đổi, do đó cần tải lại game để lấy file main.exe mới cho bản cập nhật mới nhất.
 
 **5. Kết luận**
 - Đây là một trò chơi đơn giản nhưng đã vận dụng được rất nhiều kiến thức về lập trình để có thể hoàn thành. Trò chơi được tổ chức gọn gàng nên người dùng khác có thể đọc và phát triển thêm.
