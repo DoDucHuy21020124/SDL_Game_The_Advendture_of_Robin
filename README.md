@@ -1,4 +1,4 @@
-# SDL_Game_The_Advendture_of_Robin
+# SDL_Game_The_Adventure_of_Robin
 **1. Mô tả chung về trò chơi**
 - **Tên trò chơi:** The Adventure of Robin ( Tạm dịch là Cuộc phiêu lưu của Robin ).
 - **Mô tả chung:** Trò chơi được chơi theo hình thức tích điểm, cứ mỗi lần giết được quái thú thì sẽ được cộng điểm, đồng thời cũng phải tránh được các đòn tấn công của chúng, nếu không sẽ mất mạng và ngoài ra còn có các đồ bổ trợ sẽ xuất hiện để hỗ trợ cho người chơi.
@@ -27,9 +27,8 @@
 - Sử dụng kĩ thuật lập trình hướng cấu trúc và hướng đối tượng để tổ chức và quản lí trò chơi.
 
 **4. Cách cài đặt trò chơi**
-- Người dùng cài đặt codeblock trên máy tính.
-- Tải file trò chơi tại đây rồi giải nén: https://github.com/DoDucHuy21020124/SDL_Game_The_Advendture_of_Robin/raw/main/SDL_Game_The_Advendture_of_Robin.rar
-- Sử dụng codeblock để chạy file .cbp để bắt đầu trò chơi. Mỗi khi thay đổi source code hay ra bản cập nhật mới thì game sẽ được build lại và file .cbp là file chạy game sẽ thay đổi, do đó cần tải lại game để lấy file .cbp mới cho bản cập nhật mới nhất.
+- Tải file trò chơi tại đây rồi giải nén: https://github.com/DoDucHuy21020124/SDL_Game_The_Adventure_of_Robin/raw/main/The_Adventure_of_Robin.rar
+- Sử dụng codeblock để chạy file main.exe để bắt đầu trò chơi. Mỗi khi thay đổi source code hay ra bản cập nhật mới thì game sẽ được build lại và file main.exe là file chạy game sẽ thay đổi, do đó cần tải lại game để lấy file main.exe mới cho bản cập nhật mới nhất.
 
 **5. Kết luận**
 - Đây là một trò chơi đơn giản nhưng đã vận dụng được rất nhiều kiến thức về lập trình để có thể hoàn thành. Trò chơi được tổ chức gọn gàng nên người dùng khác có thể đọc và phát triển thêm.
